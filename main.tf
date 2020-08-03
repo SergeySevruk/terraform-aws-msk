@@ -27,6 +27,10 @@ resource "aws_msk_cluster" "default" {
 
   encryption_info {
     encryption_at_rest_kms_key_arn = var.custom_kms_key == "" ? aws_kms_key.kms[0].arn : var.custom_kms_key
+    encryption_in_transit {
+      client_broker = "PLAINTEXT"
+      in_cluster    = false
+    }
   }
 
   tags = {
